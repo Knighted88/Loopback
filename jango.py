@@ -61,12 +61,19 @@ def configure_ospf():
         output_box.insert(tk.END, f"Error: {e}\n")
 
 # Function for manual SSH access
+# Function for manual SSH access
 def manual_access():
     output_box.insert(tk.END, "Opening a manual SSH session...\n")
     try:
-        # Use os.system to open an SSH session
-        os.system(f"ssh {ssh_device['username']}@{ssh_device['host']}")
-        output_box.insert(tk.END, "SSH session closed.\n")
+        # For Linux or Mac
+        if os.name == 'posix':
+            os.system(f"gnome-terminal -- ssh {ssh_device['username']}@{ssh_device['host']}")
+        
+        # For Windows (cmd or powershell)
+        elif os.name == 'nt':
+            os.system(f"start cmd /K ssh {ssh_device['username']}@{ssh_device['host']}")
+
+        output_box.insert(tk.END, "SSH session opened.\n")
     except Exception as e:
         output_box.insert(tk.END, f"Error: {e}\n")
 
