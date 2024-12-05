@@ -73,7 +73,7 @@ while True:
 
         # Close the Netmiko connection
         connection.disconnect()
-        print("Configuration complete. Disconnecting Netmiko session.")
+        print("Configuration complete!!")
 
         # Open manual SSH session
         os.system("ssh cisco@" + ssh_device['host'])
