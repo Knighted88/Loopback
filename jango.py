@@ -60,6 +60,16 @@ def configure_ospf():
     except Exception as e:
         output_box.insert(tk.END, f"Error: {e}\n")
 
+# Function for manual SSH access
+def manual_access():
+    output_box.insert(tk.END, "Opening a manual SSH session...\n")
+    try:
+        # Use os.system to open an SSH session
+        os.system(f"ssh {ssh_device['username']}@{ssh_device['host']}")
+        output_box.insert(tk.END, "SSH session closed.\n")
+    except Exception as e:
+        output_box.insert(tk.END, f"Error: {e}\n")
+
 # GUI setup
 def create_gui():
     global output_box
@@ -101,6 +111,17 @@ def create_gui():
         width=20,
     )
     button_configure_ospf.pack(pady=10)
+
+    button_manual_access = tk.Button(
+        root,
+        text="Manual SSH Access",
+        command=lambda: threading.Thread(target=manual_access).start(),
+        bg="blue",
+        fg="white",
+        font=("Arial", 14),
+        width=20,
+    )
+    button_manual_access.pack(pady=10)
 
     # Output box for logs
     output_box = scrolledtext.ScrolledText(root, width=80, height=20, font=("Arial", 12))
