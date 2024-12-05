@@ -23,7 +23,7 @@ def compare_configs(running_config, startup_config):
 
 while True:
     print('=============================================================')
-    user_choice = input('---Enter 1 to configure and access the CSR1000v router\n---or 0 to exit: ')
+    user_choice = input('---Enter 1 to configure and access the router\n---or 0 to exit: ')
     print('=============================================================')
     
     if user_choice == '1':
@@ -38,7 +38,7 @@ while True:
             'ip address 192.168.56.101 255.255.255.0',
             'no shutdown',
             'interface GigabitEthernet2',
-            'ip address 192.168.56.100 255.255.255.0',
+            'ip address 192.168.57.101 255.255.255.0',
             'no shutdown',
             'interface Loopback0',  # Loopback interface
             'ip address 10.0.0.1 255.255.255.255',
