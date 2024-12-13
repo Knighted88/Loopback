@@ -45,7 +45,6 @@ while True:
             'network 192.168.57.0',  # Advertise the 192.168.57.0 network
             'network 10.0.0.0',      # Advertise the 10.0.0.0 network
         ]
-        ]
 
         # Send configuration commands to the router
         print("Configuring interfaces and loopback...")
