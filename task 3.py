@@ -41,7 +41,6 @@ while True:
             'ip address 10.0.0.1 255.255.255.255',
             'no shutdown',
             'router rip',
-            'version 2',  # Use RIP v2
             'network 192.168.56.0',  # Advertise the 192.168.56.0 network
             'network 192.168.57.0',  # Advertise the 192.168.57.0 network
             'network 10.0.0.0',      # Advertise the 10.0.0.0 network
