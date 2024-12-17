@@ -43,6 +43,10 @@ while True:
             'interface Loopback0',  # Loopback interface
             'ip address 10.0.0.1 255.255.255.255',
             'no shutdown',
+            'router rip',
+            'network 192.168.56.0',  # Advertise the 192.168.56.0 network
+            'network 192.168.57.0',  # Advertise the 192.168.57.0 network
+            'network 10.0.0.0', 
         ]
 
         # Send configuration commands to the router
