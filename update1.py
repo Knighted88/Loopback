@@ -23,55 +23,30 @@ def compare_configs(running_config, startup_config):
 
 while True:
     print('=============================================================')
-    user_choice = input('---Enter 1 to configure and access the CSR1000v router\n---or 0 to exit: ')
+    user_choice = input('---Enter 1 to configure and access the router\n---or 0 to exit: ')
     print('=============================================================')
     
     if user_choice == '1':
         # Establish SSH connection
         connection = ConnectHandler(**ssh_device)
-        print("Connected to CSR1000v Router via SSH!")
+        print("Connected to Router By SSH!")
 
-        # Commands to configure interfaces and loopback
+        # Commands to configure Gig1 and Loopback
         ssh_commands = [
             'hostname SSHRouter',  # Set hostname
             'interface GigabitEthernet1',  # Inside interface
             'ip address 192.168.56.101 255.255.255.0',
             'no shutdown',
-            'interface GigabitEthernet2',  # Outside interface
+            'interface GigabitEthernet2',
             'ip address 192.168.57.101 255.255.255.0',
             'no shutdown',
             'interface Loopback0',  # Loopback interface
             'ip address 10.0.0.1 255.255.255.255',
             'no shutdown',
-            'router ospf 1',  # OSPF configuration
-            'network 192.168.56.0 0.0.0.255 area 0',
-            'network 192.168.57.0 0.0.0.255 area 0',
-            'network 10.0.0.0 0.0.0.0 area 0',
-            'ip access-list extended BLOCK_WEBSITES',  # ACL configuration
-            'deny tcp any any eq 80',
-            'deny tcp any any eq 443',
-            'permit ip any any',
-            'interface GigabitEthernet1',
-            'ip access-group BLOCK_WEBSITES in',
-            'crypto isakmp policy 10',  # IPSec ISAKMP policy
-            'encryption aes',
-            'hash sha256',
-            'authentication pre-share',
-            'group 14',
-            'crypto isakmp key cisco123 address 192.168.57.102',  # Peer router's IP
-            'crypto ipsec transform-set TRANS1 esp-aes esp-sha-hmac',  # IPSec transform set
-            'crypto map VPNMAP 10 ipsec-isakmp',  # Crypto map for VPN
-            'set peer 192.168.57.102',  # Peer router's IP
-            'set transform-set TRANS1',
-            'match address 101',
-            'ip access-list extended 101',  # ACL for VPN traffic
-            'permit ip 192.168.56.0 0.0.0.255 192.168.57.0 0.0.0.255',
-            'interface GigabitEthernet2',
-            'crypto map VPNMAP',  # Apply crypto map to the outside interface
         ]
 
         # Send configuration commands to the router
-        print("Configuring interfaces, routing, ACLs, and VPN...")
+        print("Configuring interfaces and loopback...")
         connection.send_config_set(ssh_commands)
 
         # Retrieve and save running and startup configurations
@@ -98,7 +73,7 @@ while True:
 
         # Close the Netmiko connection
         connection.disconnect()
-        print("Configuration complete. Disconnecting Netmiko session.")
+        print("Configuration complete!!")
 
         # Open manual SSH session
         os.system("ssh cisco@" + ssh_device['host'])
